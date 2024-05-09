@@ -23,4 +23,3 @@ def find_aita():
 
     return text
 
-print(find_aita())

@@ -1,24 +1,14 @@
-import openai
 import os
-from pathlib import Path
-from openai import OpenAI
+from gtts import gTTS
 from reddit_text import find_aita   
 
-# Set the API key for OpenAI
-openai.api_key = os.environ["OPENAI_API_KEY"]
+# Text you want to convert to speech
+text_to_speak = find_aita()
 
-# Path to save the speech file
-speech_file_path = Path(__file__).parent / "output.mp3"
+# Create a gTTS object
+tts = gTTS(text_to_speak, lang='en')
 
-# Create speech from text
-response = openai.audio.speech.create(
-    model="tts-1",
-    voice="onyx",
-    input=find_aita()
-)
+# Save the spoken text to an MP3 file
+tts.save("output.mp3")
 
-# Save the speech to a file
-with open(speech_file_path, "wb") as audio_file:
-    audio_file.write(response.content)
-
-print(f"Audio file saved as {speech_file_path}")
+print("The speech has been saved as 'output.mp3'")
