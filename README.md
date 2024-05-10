@@ -1,3 +1,6 @@
+PURPOSE:
+To take top reddit posts and convert into TikTok videos
+
 HOW TO USE:
 1) Git clone repo
 2) run pip install -r requirements.txt
