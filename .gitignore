@@ -3,3 +3,6 @@ __pycache__/
 *.mp3
 env/
 .DS_Store
+*.mp4
+*.wav
+*.srt
