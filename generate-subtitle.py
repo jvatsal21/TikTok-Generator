@@ -7,11 +7,14 @@ import reddit_text
 from faster_whisper import WhisperModel
 from moviepy.editor import AudioFileClip, ColorClip, CompositeVideoClip
 
-text = reddit_text.find_aita()
-audio.generate_audio(text)
+
+audio.generate_audio()
+input_mp3 = "audio.mp3"
+output_mp3 = "sped_up_audio.mp3"
+audio.speed_up_audio(input_mp3, output_mp3, 1.3)
 
 # Specify the path to your audio file
-audio_path = 'audio.mp3'
+audio_path = 'sped_up_audio.mp3'
 
 # Load the audio file
 audio_clip = AudioFileClip(audio_path)
