@@ -1,8 +1,7 @@
-import time
 import math
 import ffmpeg
 import audio
-import reddit_text
+import background_video
 
 from faster_whisper import WhisperModel
 from moviepy.editor import AudioFileClip, ColorClip, CompositeVideoClip
@@ -19,12 +18,8 @@ audio_path = 'sped_up_audio.mp3'
 # Load the audio file
 audio_clip = AudioFileClip(audio_path)
 
-# Create a black background video clip of the same duration as the audio clip
-# The size is (width, height) of the video frame in pixels
-background_clip = ColorClip(size=(1920, 1080), color=(0, 0, 0), duration=audio_clip.duration)
-
 # Set the audio of the background clip to be the audio clip
-video_clip = background_clip.set_audio(audio_clip)
+video_clip = background_video.get_minecraft_video(audio_clip)
 
 # Set the output file name
 output_path = 'output_video.mp4'
@@ -34,7 +29,6 @@ video_clip.write_videofile(output_path, codec='libx264', audio_codec='aac', fps=
 
 # Close all clips to clear memory
 audio_clip.close()
-background_clip.close()
 video_clip.close()
 
 input_video = "output_video.mp4"
