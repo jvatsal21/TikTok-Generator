@@ -2,8 +2,6 @@ from moviepy.editor import VideoFileClip, CompositeVideoClip, concatenate_videoc
 import ffmpeg
 
 
-
-
 def get_minecraft_video(audio_clip):
     # Specify the path to your video file (background video)
     background_video_path = 'muted_video.mp4'
