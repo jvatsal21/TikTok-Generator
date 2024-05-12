@@ -17,6 +17,7 @@ $ git clone https://github.com/jvatsal21/TikTok-Generator.git
 $ pip install -r <project-directory>/requirements.txt
 ```
 3) In reddit_text.py, update information with your Reddit API info
+
 *If you do not have Reddit API use this link* https://www.reddit.com/prefs/apps
 ```
 reddit = praw.Reddit(
