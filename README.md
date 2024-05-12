@@ -1,4 +1,5 @@
-# Automate Reddit TikTok Videos 
+# TikTok Generator
+Automate TikToks from Reddit, comes with background video, music, text-to-speech, and automatic captioning!
 
 <p align="center" width="100%">
 </p>
