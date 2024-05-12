@@ -3,6 +3,9 @@
 <p align="center" width="100%">
 </p>
 
+### Demo
+*insert demo vid*
+
 ### How To Use
 1) Clone Repo
 ```
@@ -29,4 +32,7 @@ or
 python3 generate_subtitles.py
 ```
 7) Output should be in output-output.mp4
+
+### Creators
+**Developers:** Vatsal Joshi, Pranav Kante
 
