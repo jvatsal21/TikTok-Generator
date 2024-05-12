@@ -19,9 +19,9 @@ $ pip install -r <project-directory>/requirements.txt
 3) In reddit_text.py, update information with your Reddit API info
 ```
 reddit = praw.Reddit(
-    client_secret=os.environ["REDDIT_API_KEY"],
-    client_id=os.environ["REDDIT_CLIENT_ID"],
-    user_agent=os.environ["REDDIT_USER_AGENT"]
+    client_secret="REDDIT_API_KEY", #your Reddit API key
+    client_id="REDDIT_CLIENT_ID",   #your Reddit Client ID
+    user_agent="REDDIT_USER_AGENT"  #your Reddit user agent
 )
 ```
 4) Run generate_subtitles.py
