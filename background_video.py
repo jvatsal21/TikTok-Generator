@@ -3,7 +3,7 @@ import ffmpeg
 
 
 def get_minecraft_video(audio_clip, video_clip):
-    # TODO: Replace with your own background video file
+    
     background_video_clip = VideoFileClip(video_clip)
 
     original_height = background_video_clip.size[1]
