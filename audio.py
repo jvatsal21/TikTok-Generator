@@ -2,6 +2,7 @@ from gtts import gTTS
 from pydub import AudioSegment
 from reddit_text import find_aita
 
+
 def generate_audio():
     tts = gTTS(text=find_aita(), lang='en')
     tts.save('audio.mp3')
