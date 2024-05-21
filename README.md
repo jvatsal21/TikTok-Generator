@@ -4,10 +4,10 @@ Automate TikToks from Reddit, comes with background video, music, text-to-speech
 <p align="center" width="100%">
 </p>
 
-### Demo
+## Demo
 *insert demo vid*
 
-### How To Use
+## How To Use (Without Docker)
 1) Clone Repo
 ```
 $ git clone https://github.com/jvatsal21/TikTok-Generator.git 
@@ -36,6 +36,19 @@ $ python3 generate_subtitles.py
 ```
 5) Output should be in output-output.mp4
 
-### Creators
-**Developers:** Vatsal Joshi, Pranav Kante
+## How To Use (With Docker)
+1) Make sure Docker is installed
 
+*information to install docker* https://docs.docker.com/get-docker/
+
+2) Run docker commands
+```
+$ docker build
+```
+
+```
+$ docker run
+```
+
+## Creators
+**Developers:** Vatsal Joshi, Pranav Kante

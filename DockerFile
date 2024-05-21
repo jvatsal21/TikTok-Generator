@@ -1,0 +1,24 @@
+FROM python:3.9-slim
+
+WORKDIR /usr/src/app
+
+COPY . .
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+RUN apt-get update && \
+    apt-get install -y ffmpeg && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+ENV REDDIT_API_KEY="your_reddit_api_key"
+ENV REDDIT_CLIENT_ID="your_reddit_client_id"
+ENV REDDIT_USER_AGENT="your_reddit_user_agent"
+ENV ELEVEN_LABS="your_eleven_labs_api_key"
+
+EXPOSE 80
+
+ENV NAME World
+
+# Run app.py when the container launches
+CMD ["python", "generate_subtitles.py"]
