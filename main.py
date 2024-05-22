@@ -38,7 +38,6 @@ def main():
     # subreddit = "NoStupidQuestions"
     # bg_video_file = "lowres.mp4"
     # fps = 60
-    # sessionID = '900cb1b2e21aec71df89264185270c83'
     # output_file_name = "final_output.mp4"
     # time = "all"
     # custom_url = "https://www.reddit.com/r/NoStupidQuestions/comments/snppah/what_are_florida_ounces/"
