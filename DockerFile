@@ -1,24 +1,30 @@
-FROM python:3.9-slim
+FROM python:3.10-slim
 
-WORKDIR /usr/src/app
-
-COPY . .
+WORKDIR /app
+COPY . /app
 
 RUN pip install --no-cache-dir -r requirements.txt
+RUN apt-get update && apt-get install -y \
+    ffmpeg \
+    libnss3 \
+    libnspr4 \
+    libatk1.0-0 \
+    libatk-bridge2.0-0 \
+    libcups2 \
+    libatspi2.0-0 \
+    libxcomposite1 \
+    libxdamage1 \
+    wget \
+    fontconfig
 
-RUN apt-get update && \
-    apt-get install -y ffmpeg && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+# Install the Komika Axis font
+COPY ./KOMIKAX_.ttf ./
+RUN mkdir -p /usr/share/fonts/truetype/
+RUN install -m644 KOMIKAX_.ttf /usr/share/fonts/truetype/
+RUN rm ./KOMIKAX_.ttf
 
-ENV REDDIT_API_KEY="your_reddit_api_key"
-ENV REDDIT_CLIENT_ID="your_reddit_client_id"
-ENV REDDIT_USER_AGENT="your_reddit_user_agent"
-ENV ELEVEN_LABS="your_eleven_labs_api_key"
-
-EXPOSE 80
-
-ENV NAME World
+# Install Playwright browser binaries
+RUN python3 -m playwright install chromium
 
 # Run app.py when the container launches
-CMD ["python", "generate_subtitles.py"]
+ENTRYPOINT ["python", "main.py"]

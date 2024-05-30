@@ -1,0 +1,7 @@
+services:
+  generator:
+    build: .
+    env_file:
+      - .env
+    volumes:
+      - .:/app 

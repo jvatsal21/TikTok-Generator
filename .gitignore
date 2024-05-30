@@ -6,5 +6,4 @@ env/
 *.mp4
 *.wav
 *.srt
-muted_video.mp4
-output_video.mp4
+.env

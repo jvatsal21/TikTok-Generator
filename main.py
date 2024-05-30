@@ -2,32 +2,28 @@ import audio
 import background_video
 import os
 import reddit
-import praw
+import utils
 import tempfile
 import subtitles
-import argparse
 from pydub import AudioSegment
 from moviepy.editor import ImageClip, VideoFileClip, concatenate_audioclips, AudioFileClip, CompositeVideoClip
 
 def main():
-    # Parse user arguments
-    parser = argparse.ArgumentParser(description="Generate TikTok video from Reddit post")
-    parser.add_argument("-s", "--subreddit", required=True, help="The name of the subreddit")
-    parser.add_argument("-b", "--bg_video_file", required=True, help="Path to the background video file")
-    parser.add_argument("-i", "--sessionID", required=True, help="TikTok session ID for text-to-speech")
-    parser.add_argument("-t", "--time", default="all", help="Time range for the Reddit post (e.g., 'day', 'week', 'month', 'year', 'all')")
-    parser.add_argument("-f", "--fps", type=int, default=60, help="Frames per second for the output video")
-    parser.add_argument("-o", "--output_file_name", default="final_output.mp4", help="Name of the output video file")
-    parser.add_argument("-c", "--custom_url", default=None, help="Custom URL of a Reddit post")
-    parser.add_argument("-v", "--voice", default="en_us_002", help="Voice for text-to-speech. Check voices.py for full list")
-    parser.add_argument("-m", "--max_words_on_screen", type=int, default=5, help="Maximum number of words allowed on the screen at one time")
+    print("\nBeginning video creation...\n___________\n")
 
-    args = parser.parse_args()
+    # Check if environment variables were inputted
+    utils.load_and_check_env()
+
+    # Check if the config file is provided and exists
+    config_file = 'config.json'
+    config = utils.read_config(config_file) if os.path.exists(config_file) else {}
+    
+    args = utils.parse_arguments(config)
+    sessionID = os.getenv('TIKTOK_SESSION_ID')
 
     # Assign args to local variables
     subreddit = args.subreddit
     bg_video_file = args.bg_video_file
-    sessionID = args.sessionID
     time = args.time
     fps = args.fps
     output_file_name = args.output_file_name
@@ -35,26 +31,7 @@ def main():
     voice = args.voice
     max_words_on_screen = args.max_words_on_screen
 
-    # subreddit = "NoStupidQuestions"
-    # bg_video_file = "lowres.mp4"
-    # fps = 60
-    # sessionID = '900cb1b2e21aec71df89264185270c83'
-    # output_file_name = "final_output.mp4"
-    # time = "all"
-    # custom_url = "https://www.reddit.com/r/NoStupidQuestions/comments/snppah/what_are_florida_ounces/"
-    # voice = 'en_us_rocket'
-    # max_words_on_screen = 5
-
-    # Initialize the Reddit API client using environment variables
-    reddit_api_key = os.environ.get("REDDIT_API_KEY")
-    reddit_client_id = os.environ.get("REDDIT_CLIENT_ID")
-    reddit_user_agent = os.environ.get("REDDIT_USER_AGENT")
-
-    client = praw.Reddit(
-        client_secret=reddit_api_key,
-        client_id=reddit_client_id,
-        user_agent=reddit_user_agent
-    )
+    client = utils.initialize_reddit_client()
 
     if custom_url:
         # Extract the title and text from the custom URL
@@ -66,6 +43,8 @@ def main():
 
     # Capture a screenshot of the Reddit post title, save screenshot to title.png
     reddit.capture_reddit_title_screenshot(url)
+
+    print("Generating voiceover\n___________\n")
 
     # Generate audio for the post title & text
     title_audio_clip = audio.generate_audio(title, sessionID, voice, True)
@@ -82,20 +61,19 @@ def main():
     with tempfile.NamedTemporaryFile(suffix=".mp3", delete=False) as temp_combined_audio:
         combined_audio_clip.write_audiofile(temp_combined_audio.name)
 
+    print("\nCombining background video with voiceover...\n___________\n")
     # Generate the background video with the combined audio
     background_video.get_background_video(combined_audio_clip, bg_video_file, fps=fps)
 
+    print("\nGenerating subtitles...\n___________\n")
     # Run the subtitle generator with temp files to avoid garbage collection
-    with tempfile.NamedTemporaryFile(suffix=".wav") as temp_audio:
-        with tempfile.NamedTemporaryFile(suffix=".srt") as temp_subtitle:
-            # Generate subtitles for the non-title part of the video
-            subtitles.run(title_audio_clip.duration, "output_video.mp4", temp_audio, temp_subtitle, max_words_on_screen) 
+    with tempfile.NamedTemporaryFile(suffix=".wav") as temp_audio, tempfile.NamedTemporaryFile(suffix=".srt") as temp_subtitle:
+        subtitles.run(title_audio_clip.duration, "output_video.mp4", temp_audio, temp_subtitle, max_words_on_screen)
 
     # Load the main video clip one last time to add the screenshot
     main_video = VideoFileClip("output.mp4")
-
     screenshot = ImageClip('title.png')
-    
+
     # Set the duration of the logo to match the title audio duration
     screenshot = screenshot.set_duration(title_audio_clip.duration) 
     
@@ -104,18 +82,18 @@ def main():
     screenshot = screenshot.resize(scale_factor)
     screenshot = screenshot.set_pos('center') 
 
+    print("\nFinishing up final video...\n___________\n")
+    
     # Combine the main video and logo into a final composite video named by user
     final_video = CompositeVideoClip([main_video, screenshot.set_start(0)])  
     final_video.write_videofile(filename=output_file_name, codec='libx264', audio_codec='aac', fps=fps)
 
     # Clean up temporary files
-    try:
-        os.remove('title.png')
-        os.remove('output.mp4')
-        os.remove('cropped.mp4')
-        os.remove('output_video.mp4')
-    except:
-        pass
+    for temp_file in ['title.png', 'output.mp4', 'cropped.mp4', 'output_video.mp4']:
+        try:
+            os.remove(temp_file)
+        except:
+            pass
 
 if __name__ == "__main__":
     main()
