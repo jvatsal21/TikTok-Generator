@@ -50,5 +50,8 @@ $ docker build
 $ docker run
 ```
 
+## Credits
+**TikTok Text-to-speech API**: https://github.com/oscie57/tiktok-voice
+
 ## Creators
 **Developers:** Vatsal Joshi, Pranav Kante
