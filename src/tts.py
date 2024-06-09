@@ -4,7 +4,7 @@ This code is based on the repository: https://github.com/oscie57/tiktok-voice
 Original work by: oscie (oscie57)
 """
 import requests, base64, random, argparse, os, playsound, re, textwrap
-from voices import voices
+import voices
 
 API_BASE_URL = f"https://api16-normal-useast5.us.tiktokv.com/media/api/text/speech/invoke/"
 USER_AGENT = f"com.zhiliaoapp.musically/2022600030 (Linux; U; Android 7.1.2; es_ES; SM-G988N; Build/NRD90M;tt-ok/3.12.13.1)"

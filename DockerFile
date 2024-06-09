@@ -18,10 +18,8 @@ RUN apt-get update && apt-get install -y \
     fontconfig
 
 # Install the Komika Axis font
-COPY ./KOMIKAX_.ttf ./
 RUN mkdir -p /usr/share/fonts/truetype/
-RUN install -m644 KOMIKAX_.ttf /usr/share/fonts/truetype/
-RUN rm ./KOMIKAX_.ttf
+COPY ./fonts/KOMIKAX_.ttf /usr/share/fonts/truetype/
 
 # Install Playwright browser binaries
 RUN python3 -m playwright install chromium

@@ -1,10 +1,10 @@
-import audio
-import background_video
+import src.audio as audio
+import src.background_video as background_video
+import src.reddit as reddit
+import src.utils as utils
+import src.subtitles as subtitles
 import os
-import reddit
-import utils
 import tempfile
-import subtitles
 from pydub import AudioSegment
 from moviepy.editor import ImageClip, VideoFileClip, concatenate_audioclips, AudioFileClip, CompositeVideoClip
 
@@ -49,7 +49,7 @@ def main():
     # Generate audio for the post title & text
     title_audio_clip = audio.generate_audio(title, sessionID, voice, True)
     main_audio_clip = audio.generate_audio(text, sessionID, voice, False)
-    
+
     # Make a brief silent audio clip to have a pause at the end of the video
     silent_audio = AudioSegment.silent(duration=1500)
     with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as temp_silent_audio:

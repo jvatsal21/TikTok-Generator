@@ -16,6 +16,7 @@ def generate_audio(text, sessionID, voice, is_title):
     Returns:
         AudioFileClip: The generated audio clip.
     """
+    
     with tempfile.NamedTemporaryFile(mode='w+', delete=True, suffix='.txt') as text_file:
         text_file.write(text)
         text_file.flush()
@@ -23,9 +24,10 @@ def generate_audio(text, sessionID, voice, is_title):
         with tempfile.NamedTemporaryFile(delete=False, suffix='.mp3') as audio_file:
             audio_file_path = audio_file.name
 
+
         # Create a list of command arguments for the text-to-speech conversion
         command = [
-            'python3', 'tts.py',
+            'python3', 'src/tts.py',
             '-v', voice,
             '-f', text_file.name,
             '-n', audio_file_path, 
