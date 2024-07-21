@@ -18,7 +18,7 @@ def get_background_video(audio_clip, video_clip, fps):
     new_width = int(original_height * aspect_ratio)
 
     cropped_clip = background_video_clip.crop(x_center=background_video_clip.size[0]/2, width=new_width, height=original_height)
-    cropped_video_path = 'cropped.mp4'
+    cropped_video_path = 'assets/lowres.mp4'
     cropped_clip.write_videofile(cropped_video_path, codec='libx264', audio_codec='aac', fps=fps, bitrate='8000k', preset='slow')
     background_video_clip.close()
 

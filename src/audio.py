@@ -2,6 +2,7 @@ from pydub import AudioSegment
 import subprocess
 from moviepy.editor import AudioFileClip
 import tempfile
+import os
 
 def generate_audio(text, sessionID, voice, is_title):
     """
@@ -21,8 +22,8 @@ def generate_audio(text, sessionID, voice, is_title):
         text_file.write(text)
         text_file.flush()
 
-        with tempfile.NamedTemporaryFile(delete=False, suffix='.mp3') as audio_file:
-            audio_file_path = audio_file.name
+    with tempfile.NamedTemporaryFile(delete=False, suffix='.mp3') as audio_file:
+        audio_file_path = audio_file.name
 
 
         # Create a list of command arguments for the text-to-speech conversion
@@ -36,6 +37,9 @@ def generate_audio(text, sessionID, voice, is_title):
         
         # Run the text-to-speech conversion command
         subprocess.run(command, text=True, capture_output=True)
+    
+    if not os.path.exists(audio_file_path) or :
+            raise IOError("Failed to generate audio file")
 
     audio_clip = AudioFileClip(audio_file_path)
 

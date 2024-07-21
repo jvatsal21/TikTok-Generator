@@ -1,12 +1,12 @@
 {
-    "bg_video_file": "",
-    "subreddit": "",
-    "time": "",
-    "fps": "",
-    "output_file_name": "",
-    "custom_url": "",
-    "voice": "",
-    "max_words_on_screen": ""
-  }
+  "bg_video_file": "lowres.mp4",
+  "subreddit": "",
+  "time": "",
+  "fps": "60",
+  "output_file_name": "",
+  "custom_url": "https://www.reddit.com/r/AmItheAsshole/comments/daglhs/aita_for_telling_my_son_he_deserved_his_gf/",
+  "voice": "",
+  "max_words_on_screen": ""
+}
   
   
