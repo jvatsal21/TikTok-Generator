@@ -5,7 +5,8 @@ Automate TikToks from Reddit, comes with background video, music, text-to-speech
 </p>
 
 ## Demo
-*insert demo vid*
+[*insert demo vid*](https://www.tiktok.com/@roboredditor/video/7371535112929824043?_r=1&_t=8oDKOYOF0cY)
+*This is from our demo account the official account got banned lol
 
 ## How To Use (Without Docker)
 1) Clone Repo
