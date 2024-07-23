@@ -40,7 +40,8 @@ TIKTOK_SESSION_ID= YOUR_TIKTOK_SESSION_ID
   "max_words_on_screen": ""
 }
 ```
-4) Run docker
+4) Add your mp4 file(the video you want to put in the background) in the assets folder 
+5) Run docker
 ```
 $ docker-compose up --build
 ```
