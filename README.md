@@ -5,51 +5,46 @@ Automate TikToks from Reddit, comes with background video, music, text-to-speech
 </p>
 
 ## Demo
-[*insert demo vid*](https://www.tiktok.com/@roboredditor/video/7371535112929824043?_r=1&_t=8oDKOYOF0cY)
+[*demo vid*](https://www.tiktok.com/@roboredditor/video/7371535112929824043?_r=1&_t=8oDKOYOF0cY)
 *This is from our demo account the official account got banned lol
 
-## How To Use (Without Docker)
+## How To Use (With Docker)
+
+Make sure Docker is installed
+
+*information to install docker* https://docs.docker.com/get-docker/
+
 1) Clone Repo
 ```
 $ git clone https://github.com/jvatsal21/TikTok-Generator.git 
 ```
-2) Download Requirements
+2) Edit .env to contain the appropriate keys: Reddit API: https://www.reddit.com/prefs/apps , TikTok Session_id you can get from your account
 ```
-$ pip install -r <project-directory>/requirements.txt
+REDDIT_API_KEY= YOUR_REDDIT_API_KEY
+REDDIT_CLIENT_ID= YOUR_REDDIT_CLIENT_ID
+REDDIT_USER_AGENT= YOUR_REDDIT_USER_AGENT
+TIKTOK_SESSION_ID= YOUR_TIKTOK_SESSION_ID
 ```
-3) In reddit_text.py, update information with your Reddit API info
+3) Update config.json for your desired configurations
 
 *If you do not have Reddit API use this link* https://www.reddit.com/prefs/apps
 ```
-reddit = praw.Reddit(
-    client_secret="REDDIT_API_KEY", #your Reddit API key
-    client_id="REDDIT_CLIENT_ID",   #your Reddit Client ID
-    user_agent="REDDIT_USER_AGENT"  #your Reddit user agent
-)
+{
+  "bg_video_file": "any mp4 video",
+  "subreddit": "",
+  "time": "",
+  "fps": "60",
+  "output_file_name": "",
+  "custom_url": "reddit url",
+  "voice": "",
+  "max_words_on_screen": ""
+}
 ```
-4) Run generate_subtitles.py
+4) Run docker
 ```
-$ python generate_subtitles.py
-```
-or
-```
-$ python3 generate_subtitles.py
-```
-5) Output should be in output-output.mp4
-
-## How To Use (With Docker)
-1) Make sure Docker is installed
-
-*information to install docker* https://docs.docker.com/get-docker/
-
-2) Run docker commands
-```
-$ docker build
+$ docker-compose up --build
 ```
 
-```
-$ docker run
-```
 
 ## Credits
 **TikTok Text-to-speech API**: https://github.com/oscie57/tiktok-voice
