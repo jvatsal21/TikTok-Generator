@@ -62,7 +62,7 @@ Place your **background video (MP4 file)** inside the `assets/` folder.
 $ docker-compose up --build
 ```
 
-## 🔗 How It Works
+## 💡 How It Works
 1. **Fetch Reddit Post**: Retrieves a top post from a given subreddit or custom URL.
 2. **Extract Content**: Parses post text and formats it for TikTok display.
 3. **Generate Captions**: Adds automatic on-screen captions.
